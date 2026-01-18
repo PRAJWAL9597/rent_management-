@@ -1,0 +1,2 @@
+ALTER TABLE invoice ADD COLUMN current_reading BIGINT DEFAULT 0;
+ALTER TABLE invoice ADD COLUMN previous_reading BIGINT DEFAULT 0;

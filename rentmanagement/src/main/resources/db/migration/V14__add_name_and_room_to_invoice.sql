@@ -1,0 +1,2 @@
+ALTER TABLE invoice ADD COLUMN tenant_name VARCHAR(255);
+ALTER TABLE invoice ADD COLUMN room_no VARCHAR(50);

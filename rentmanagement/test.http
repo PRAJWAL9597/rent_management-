@@ -1,0 +1,170 @@
+### STEP 1: Setup Pricing Policy for 2026
+POST http://localhost:8081/api/pricing
+Content-Type: application/json
+
+{
+    "roomRent": 4500.00,
+    "unitPrice": 12.00,
+    "effectiveFrom": "2026-01-01"
+}
+
+
+### STEP 2: Create 5 Unique Tenants
+# Room 101 - Prajwal
+POST http://localhost:8081/api/tenants
+Content-Type: application/json
+
+{
+    "name": "Prajwal",
+    "roomNo": "101",
+    "phoneNo": "9876543210",
+    "aadharNo": "123456789012",
+    "joiningDate": "2026-01-01",
+    "meterId": "MTR-101",
+    "email": "prajwal@example.com"
+}
+
+### Room 102 - Amit
+POST http://localhost:8081/api/tenants
+Content-Type: application/json
+
+{
+    "name": "Amit Kumar",
+    "roomNo": "102",
+    "phoneNo": "9876543211",
+    "aadharNo": "123456789013",
+    "joiningDate": "2026-01-01",
+    "meterId": "MTR-102",
+    "email": "amit@example.com"
+}
+
+### Room 103 - Sneha
+POST http://localhost:8081/api/tenants
+Content-Type: application/json
+
+{
+    "name": "Sneha Reddy",
+    "roomNo": "103",
+    "phoneNo": "9876543212",
+    "aadharNo": "123456789014",
+    "joiningDate": "2026-01-01",
+    "meterId": "MTR-103",
+    "email": "sneha@example.com"
+}
+
+### Room 201 - Vikram
+POST http://localhost:8081/api/tenants
+Content-Type: application/json
+
+{
+    "name": "Vikram Singh",
+    "roomNo": "201",
+    "phoneNo": "9876543213",
+    "aadharNo": "123456789015",
+    "joiningDate": "2026-01-01",
+    "meterId": "MTR-201",
+    "email": "vikram@example.com"
+}
+
+### Room 202 - Rahul
+POST http://localhost:8081/api/tenants
+Content-Type: application/json
+
+{
+    "name": "Rahul Verma",
+    "roomNo": "202",
+    "phoneNo": "9876543214",
+    "aadharNo": "123456789016",
+    "joiningDate": "2026-01-01",
+    "meterId": "MTR-202",
+    "email": "rahul@example.com"
+}
+
+
+### STEP 3: Add Meter Readings (Varying Units)
+# Room 101 - Consumed 150 units
+POST http://localhost:8081/api/meter-readings/room/101
+Content-Type: application/json
+
+{
+    "readingMonth": "2026-01-01",
+    "previousReading": 1000,
+    "currentReading": 1150
+}
+
+# Room 102 - Consumed 80 units
+POST http://localhost:8081/api/meter-readings/room/102
+Content-Type: application/json
+
+{
+    "readingMonth": "2026-01-01",
+    "previousReading": 2000,
+    "currentReading": 2080
+}
+
+# Room 103 - Consumed 120 units
+POST http://localhost:8081/api/meter-readings/room/103
+Content-Type: application/json
+
+{
+    "readingMonth": "2026-01-01",
+    "previousReading": 500,
+    "currentReading": 620
+}
+
+# Room 201 - Consumed 200 units
+POST http://localhost:8081/api/meter-readings/room/201
+Content-Type: application/json
+
+{
+    "readingMonth": "2026-01-01",
+    "previousReading": 3000,
+    "currentReading": 3200
+}
+
+###Room 202 - Consumed 50 units
+POST http://localhost:8081/api/meter-readings/room/202
+Content-Type: application/json
+
+{
+    "readingMonth": "2026-01-01",
+    "previousReading": 1500,
+    "currentReading": 1550
+}
+
+
+### STEP 4: Generate Bulk Invoices for Jan 2026
+# totalCommonUnits = 50. Distributed across 5 tenants (10 units each)
+POST http://localhost:8081/api/invoices/bulk?month=2026-01&totalCommonUnits=50
+
+
+### STEP 5: View Final Dashboard
+GET http://localhost:8081/api/invoices/month/2026-01
+
+GET http://localhost:8081/api/tenants
+
+### POST Reading using UUID instead of Room No
+POST http://localhost:8081/api/meter-readings
+Content-Type: application/json
+
+{
+    "tenantId": "c6196c1a-f8af-404d-953c-a17fbde649b5",
+    "readingMonth": "2026-01-01",
+    "previousReading": 2000,
+    "currentReading": 2080
+}
+
+GET http://localhost:8081/api/invoices/month/2026-01
+
+http://localhost:8081/api/invoices/month/2026-01/download-
+
+
+GET http://localhost:8081/api/invoices/month/2026-01
+
+http://localhost:8081/api/invoices/month/2026-01/download-all
+
+http://localhost:8081/api/invoices/db74b45e-b494-4713-a3ad-5db4a2e62460/download
+
+GET http://localhost:8081/api/invoices/month/2026-01
+
+GET http://localhost:8081/api/invoices/month/2026-01/download-all

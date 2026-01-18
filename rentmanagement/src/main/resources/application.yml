@@ -1,0 +1,32 @@
+
+server:
+  port: 8081
+
+  
+  
+
+spring:
+
+  autoconfigure:
+    exclude: 
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rent_management
+    username: postgres
+    password: Maya@8857
+    hikari:
+      schema: public
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: public
+
+  flyway:
+    enabled: true
+    schemas: public
